@@ -23,19 +23,19 @@ def split_data():
         train_files = glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}.*')) + glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}_*'))
         for j in train_files:
             name = j.split('\\')[-1]
-            shutil.copyfile(j, os.path.join(TRAIN_TEST_VALID_DIR, f'/train/{name}'))
+            shutil.copyfile(j, os.path.join(TRAIN_TEST_VALID_DIR, f'train/{name}'))
 
     for i in test_data:
         test_files = glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}.*')) + glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}_*'))
         for j in test_files:
             name = j.split('\\')[-1]
-            shutil.copyfile(j, os.path.join(TRAIN_TEST_VALID_DIR, f'/test/{name}'))
+            shutil.copyfile(j, os.path.join(TRAIN_TEST_VALID_DIR, f'test/{name}'))
 
     for i in validation_data:
         valid_files = glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}.*')) + glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}_*'))
         for j in valid_files:
             name = j.split('\\')[-1]
-            shutil.copyfile(j, os.path.join(TRAIN_TEST_VALID_DIR, f'/valid/{name}'))
+            shutil.copyfile(j, os.path.join(TRAIN_TEST_VALID_DIR, f'valid/{name}'))
 
 if __name__ == '__main__':
     split_data()

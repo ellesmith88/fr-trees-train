@@ -340,6 +340,10 @@ def run_test_inference():
     recall = tp/(tp+fp)
     precision = tp/(tp+fn)
 
+    print('tp =', tp)
+    print('fp =', fp)
+    print('fn =', fn)
+
 
     metric = MeanAveragePrecision()
     metric.update(preds, target)
