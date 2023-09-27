@@ -337,12 +337,31 @@ def run_test_inference():
     gt_boxes = get_gt_boxes(DIR_TEST)
     tp, fp, fn = get_results(gt_boxes, pred_boxes, iou_thr)
 
+    # get results for conifers only
+    gt_boxes_con = [i for i in gt_boxes if i[1] == 'conifer']
+    pred_boxes_con = [i for i in pred_boxes if i[1] == 'conifer']
+    tpc, fpc, fnc = get_results(gt_boxes_con, pred_boxes_con, iou_thr)
+
+    # get results for bl only
+    gt_boxes_bl = [i for i in gt_boxes if i[1] == 'tree']
+    pred_boxes_bl = [i for i in pred_boxes if i[1] == 'tree']
+    tpbl, fpbl, fnbl = get_results(gt_boxes_bl, pred_boxes_bl, iou_thr)
+
+
     recall = tp/(tp+fp)
     precision = tp/(tp+fn)
 
     print('tp =', tp)
     print('fp =', fp)
     print('fn =', fn)
+
+    print('tp conifer =', tpc)
+    print('fp conifer =', fpc)
+    print('fn conifer =', fnc)
+
+    print('tp broadleaf =', tpbl)
+    print('fp broadleaf =', fpbl)
+    print('fn broadleaf =', fnbl)
 
 
     metric = MeanAveragePrecision()
