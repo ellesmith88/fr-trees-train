@@ -1,0 +1,24 @@
+name: train
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - albumentations
+  - pip
+  - matplotlib
+  - python==3.9.0
+  - pytorch-cuda=11.8=h24eeafa_5
+  - scikit-image
+  - scikit-learn
+  - pip:
+    - numpy==1.25.0
+    - opencv-python==4.7.0.72
+    - torch==2.0.1
+    - torch-tb-profiler==0.4.1
+    - torchaudio==2.0.2
+    - torchmetrics==0.11.4
+    - torchvision==0.15.2
+    - tqdm
+    - Jinja2
