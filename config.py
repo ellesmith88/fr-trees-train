@@ -13,12 +13,12 @@ def get_map_name(map_im):
 template_image = '..\..\map_images\Edinburgh_1_2500\\125642410.27.tif'
 
 # location to save model and plots
-OUT_DIR = 'model/extra'
-model_path = os.path.join(OUT_DIR, 'best.pth')
+OUT_DIR = 'model/pdfs'
+model_path = os.path.join(OUT_DIR, 'last.pth')
 
 map_name = get_map_name(template_image)
 
-city = 'edi'
+city = 'leeds'
 scale = '500'
 
 # path to directory that stores images to run model over
@@ -27,7 +27,7 @@ image_dir = f'..\split_ims\{city}\\1_{scale}\{map_name}\greyscale'
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
 # used in splitting into test, train, valid
-TRAIN_TEST_VALID_DIR = '..\\training_data\\extra'
+TRAIN_TEST_VALID_DIR = '..\\training_data\\all_training_w_pdfs'
 
 # classes: 0 index is reserved for background
 CLASSES = [

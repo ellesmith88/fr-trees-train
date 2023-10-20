@@ -351,14 +351,17 @@ def run_test_inference():
     recall = tp/(tp+fp)
     precision = tp/(tp+fn)
 
+    print('gt boxes =', len(gt_boxes))
     print('tp =', tp)
     print('fp =', fp)
     print('fn =', fn)
 
+    print('gt boxes conifer =', len(gt_boxes_con))
     print('tp conifer =', tpc)
     print('fp conifer =', fpc)
     print('fn conifer =', fnc)
 
+    print('gt boxes broadleaf =', len(gt_boxes_bl))
     print('tp broadleaf =', tpbl)
     print('fp broadleaf =', fpbl)
     print('fn broadleaf =', fnbl)
