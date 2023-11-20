@@ -5,7 +5,7 @@ from glob import glob
 import os
 from model import create_model
 import pandas as pd
-from config import TRAIN_TEST_VALID_DIR, OUT_DIR, model_path, CLASSES, detection_threshold, iou_thr, map_name
+from config import TRAIN_TEST_VALID_DIR, OUT_DIR, model_path, CLASSES, iou_thr, map_name, final_conifer_threshold, final_broadleaf_threshold
 from xml.etree import ElementTree as et
 from torchmetrics.detection.mean_ap import MeanAveragePrecision
 
@@ -277,14 +277,25 @@ def run_test_inference():
             boxes = outputs[0]['boxes'].data.numpy()
             scores = outputs[0]['scores'].data.numpy()
     
-            # filter out boxes according to `detection_threshold`
-            boxes = boxes[scores >= detection_threshold].astype(np.int32)
-            labels = outputs[0]['labels'].data.numpy()[scores >= detection_threshold]
-            scores = scores[scores >= detection_threshold]
 
+            labels = outputs[0]['labels'].data.numpy()
+
+        
+            boxes_con = boxes[(scores >= final_conifer_threshold) & (labels == 2)].astype(np.int32)
+            labels_con = labels[(scores >= final_conifer_threshold) & (labels == 2)]
+            scores_con = scores[(scores >= final_conifer_threshold) & (labels == 2)]
+
+            boxes_bl = boxes[(scores >= final_broadleaf_threshold) & (labels == 1)].astype(np.int32)
+            labels_bl = labels[(scores >= final_broadleaf_threshold) & (labels == 1)]
+            scores_bl = scores[(scores >= final_broadleaf_threshold) & (labels == 1)]
+
+            # combine all arrays back together
+            boxes = np.vstack((boxes_con, boxes_bl))
+            labels = np.hstack((labels_con, labels_bl))
+            scores = np.hstack((scores_con, scores_bl))
+            
             draw_boxes = boxes.copy()
 
-            
             labels_list = labels.tolist()
             # get all the predicited class names - need to filter this according to scores
             pred_classes = [CLASSES[i] for i in labels_list]
@@ -319,7 +330,7 @@ def run_test_inference():
                 # image name, top left corner pixel x and y, pixel x, pixel y, pixel x and y adjusted, lat, lon, 
 
 
-                out = os.path.join(OUT_DIR, f'predictions/{map_name}_test')
+                out = os.path.join(OUT_DIR, f'predictions/test')
                 if not os.path.exists(out):
                 # Create a new directory because it does not exist
                     os.makedirs(out)

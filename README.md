@@ -23,7 +23,8 @@ How to use:
 - ``image_dir`` path to directory that stores images for template matching
 - ``TRAIN_TEST_VALID_DIR`` where training, validation and test data is stored
 - ``CLASSES`` is a list of classes the model should detect (same as the model was trained with)
-- ``detection threshold`` determines the score below which detections will be discarded.
+- ``final_conifer_threshold`` determines the score below which detections will be discarded in the final NMS run for detected conifer symbols only.
+- ``final_broadleaf_threshold`` determines the score below which detections will be discarded in the final NMS run for detected broadleaf symbols only.
 - ``iou_thr`` threshold for IOU, used for getting confusion matrix on test data
 - ``model_path`` is the path to the model weights
 - ``scale`` is the scale of the maps that trees are being identified on. '500' is 1:500, '2500' is 1:2500 etc.

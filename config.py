@@ -13,8 +13,8 @@ def get_map_name(map_im):
 template_image = '..\..\map_images\Edinburgh_1_2500\\125642410.27.tif'
 
 # location to save model and plots
-OUT_DIR = 'model/pdfs'
-model_path = os.path.join(OUT_DIR, 'last.pth')
+OUT_DIR = 'model/extra'
+model_path = os.path.join(OUT_DIR, 'best.pth')
 
 map_name = get_map_name(template_image)
 
@@ -27,14 +27,27 @@ image_dir = f'..\split_ims\{city}\\1_{scale}\{map_name}\greyscale'
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
 # used in splitting into test, train, valid
-TRAIN_TEST_VALID_DIR = '..\\training_data\\all_training_w_pdfs'
+TRAIN_TEST_VALID_DIR = '..\\training_data\\extra'
 
 # classes: 0 index is reserved for background
 CLASSES = [
     'background', 'tree', 'conifer'
 ]
 
-detection_threshold = 0.6
+# any detection having score below this will be discarded
+# currently using avg of leeds and edi
+initial_detection_threshold = 0.7
+final_conifer_threshold = 0.912
+final_broadleaf_threshold = 0.978
+
+#leeds vals
+#con = 0.849 
+#broadleaf = 0.972
+
+#edi vals
+#con = 0.975
+#broadleaf = 0.984 
+
 iou_thr = 0.6
 
 # template locations in the image - [ymin, ymax, xmin, xmax]]
