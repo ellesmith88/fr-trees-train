@@ -23,8 +23,10 @@ How to use:
 - ``image_dir`` path to directory that stores images for template matching
 - ``TRAIN_TEST_VALID_DIR`` where training, validation and test data is stored
 - ``CLASSES`` is a list of classes the model should detect (same as the model was trained with)
-- ``final_conifer_threshold`` determines the score below which detections will be discarded in the final NMS run for detected conifer symbols only.
-- ``final_broadleaf_threshold`` determines the score below which detections will be discarded in the final NMS run for detected broadleaf symbols only.
+- ``final_conifer_threshold_leeds`` determines the score below which detections will be discarded in the final NMS run for detected conifer symbols on Leeds sheets only.
+- ``final_broadleaf_threshold_leeds`` determines the score below which detections will be discarded in the final NMS run for detected broadleaf symbols on Leeds sheets only.
+- ``final_conifer_threshold_edi`` determines the score below which detections will be discarded in the final NMS run for detected conifer symbols on Edinburgh sheets only.
+- ``final_broadleaf_threshold_edi`` determines the score below which detections will be discarded in the final NMS run for detected broadleaf symbols on Edinburgh sheets only.
 - ``iou_thr`` threshold for IOU, used for getting confusion matrix on test data
 - ``model_path`` is the path to the model weights
 - ``scale`` is the scale of the maps that trees are being identified on. '500' is 1:500, '2500' is 1:2500 etc.
@@ -45,7 +47,7 @@ How to use:
 
    Alternatively, all training data (with appropriate xml files - VOC XML format), can be provided in the ``TEST_TRAIN_VALID_DIR`` and then ``create_train_valid_test.py`` can be run to split into the three groups.
 
-   NOTE: template matching only detects and creates xml files with 'tree' (broadleaf) symbols, not conifers. Conifer xml template is provided but is not used.
+   NOTE: template matching detects and creates xml files with 'tree' (broadleaf) symbols, not conifers. Conifer xml template is provided but is not used. ``xml_template_loc`` must be changed in order to use the conifer template.
 
 3. Run ``engine.py`` with the path to directory for train and valid data. The path must be provided as a command line argument using ``-p``. This is becuase of the use case for this project, but this should be the same as ``TRAIN_TEST_VALID_DIR``. 
 

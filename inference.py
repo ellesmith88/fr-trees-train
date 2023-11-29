@@ -5,7 +5,7 @@ from glob import glob
 import os
 from model import create_model
 import pandas as pd
-from config import TRAIN_TEST_VALID_DIR, OUT_DIR, model_path, CLASSES, iou_thr, map_name, final_conifer_threshold, final_broadleaf_threshold
+from config import TRAIN_TEST_VALID_DIR, OUT_DIR, model_path, CLASSES, iou_thr, final_conifer_threshold_leeds, final_broadleaf_threshold_leeds, final_conifer_threshold_edi, final_broadleaf_threshold_edi
 from xml.etree import ElementTree as et
 from torchmetrics.detection.mean_ap import MeanAveragePrecision
 
@@ -244,8 +244,41 @@ def run_test_inference():
 
         # get the image file name for saving output later on
         image_name = test_images[i].split('\\')[-1].split('.')[0]
-
+        
         print(image_name)
+
+        if ('_' in image_name) is False:
+            final_conifer_threshold = final_conifer_threshold_leeds
+            final_broadleaf_threshold = final_broadleaf_threshold_leeds
+        elif image_name.split('_')[-1] == '2':
+            final_conifer_threshold = final_conifer_threshold_leeds
+            final_broadleaf_threshold = final_broadleaf_threshold_leeds
+        elif image_name.split('_')[-1] == '3':
+            final_conifer_threshold = final_conifer_threshold_leeds
+            final_broadleaf_threshold = final_broadleaf_threshold_leeds
+        elif image_name.split('_')[-1] == '4':
+            final_conifer_threshold = final_conifer_threshold_edi
+            final_broadleaf_threshold = final_broadleaf_threshold_edi
+        elif image_name.split('_')[-1] == '5':
+            final_conifer_threshold = final_conifer_threshold_edi
+            final_broadleaf_threshold = final_broadleaf_threshold_edi
+        elif image_name.split('_')[-1] == '6':
+            final_conifer_threshold = final_conifer_threshold_edi
+            final_broadleaf_threshold = final_broadleaf_threshold_edi
+        elif image_name.split('_')[-1] == '7':
+            final_conifer_threshold = final_conifer_threshold_edi
+            final_broadleaf_threshold = final_broadleaf_threshold_edi
+        elif image_name.split('_')[-1] == 'ee':
+            final_conifer_threshold = final_conifer_threshold_edi
+            final_broadleaf_threshold = final_broadleaf_threshold_edi  
+        elif image_name.split('_')[-1] == 'el':
+            final_conifer_threshold = final_conifer_threshold_edi
+            final_broadleaf_threshold = final_broadleaf_threshold_edi 
+        elif image_name.split('_')[-1] == 's': # all conifer symbols for synthetic taken from edi sheets, so use edi values
+            final_conifer_threshold = final_conifer_threshold_edi
+            final_broadleaf_threshold = final_broadleaf_threshold_edi
+        else:
+            raise ValueError('Input block not recognised, conifer and broadleaf confidence thresholds cannot be set')
 
         image = cv2.imread(test_images[i])
         orig_image = image.copy()

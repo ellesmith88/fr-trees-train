@@ -37,8 +37,10 @@ CLASSES = [
 # any detection having score below this will be discarded
 # currently using avg of leeds and edi
 initial_detection_threshold = 0.7
-final_conifer_threshold = 0.912
-final_broadleaf_threshold = 0.978
+final_conifer_threshold_leeds = 0.849
+final_broadleaf_threshold_leeds = 0.972
+final_conifer_threshold_edi = 0.975
+final_broadleaf_threshold_edi = 0.984
 
 #leeds vals
 #con = 0.849 
