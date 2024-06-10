@@ -20,19 +20,19 @@ def split_data():
             os.makedirs(path)
 
     for i in train_data:
-        train_files = glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}.*')) + glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}_*'))
+        train_files = glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}.*')) 
         for j in train_files:
             name = j.split('\\')[-1]
             shutil.copyfile(j, os.path.join(TRAIN_TEST_VALID_DIR, f'train/{name}'))
 
     for i in test_data:
-        test_files = glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}.*')) + glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}_*'))
+        test_files = glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}.*')) 
         for j in test_files:
             name = j.split('\\')[-1]
             shutil.copyfile(j, os.path.join(TRAIN_TEST_VALID_DIR, f'test/{name}'))
 
     for i in validation_data:
-        valid_files = glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}.*')) + glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}_*'))
+        valid_files = glob(os.path.join(TRAIN_TEST_VALID_DIR, f'{i}.*')) 
         for j in valid_files:
             name = j.split('\\')[-1]
             shutil.copyfile(j, os.path.join(TRAIN_TEST_VALID_DIR, f'valid/{name}'))
